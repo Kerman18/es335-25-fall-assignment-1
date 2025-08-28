@@ -49,8 +49,6 @@ def entropy(Y: pd.Series) -> float:
     """
     p=Y.value_counts(normalize=True)
     p = p[p > 0] # Removing zero probabilities to avoid log2(0)
-    if p.empty:
-        return 0
     return -(p*np.log2(p)).sum() #Entropy formula
 
 
@@ -112,7 +110,7 @@ def opt_split_attribute(X: pd.DataFrame, y: pd.Series, criterion:Union[str,None]
     return: attribute to split upon and the value of that attribute to split upon
     """
     
-    assert criterion in ['information_gain', 'gini_index', None],f"Expecting 'entropy' or 'gini':for classification and {None} for regeresion, got {criterion} instead"
+    assert criterion in ['information_gain', 'gini_index', None],f"Expecting 'information_gain' or 'gini_index':for classification and {None} for regeresion, got {criterion} instead"
 
     best_attr = None
     best_score = -float('inf') # starting with the lowest possible value because if all gains are negative still want to return the best one
